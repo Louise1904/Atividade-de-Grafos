@@ -135,26 +135,4 @@ I*........
 | BFS | **19** | **18** | 56 |
 | Busca Gulosa | 21 | 20 | **37** |
 
-## Análise
 
-### Por que a BFS encontrou o menor caminho e a DFS não?
-
-A **DFS** segue o primeiro vizinho disponível na ordem de `DIRECOES` e fica com o **primeiro** caminho que chega no F, sem compará-lo com outros. Neste labirinto, ela saiu do I pela direita, entrou no beco da coluna da direita, voltou até (0, 6), fez um ziguezague pela linha 1 e só então desceu: **31 casas**.
-
-A **BFS** usa uma fila e visita as casas em camadas: primeiro todas a 1 passo do início, depois todas a 2 passos, e assim por diante. Por isso, a primeira vez que ela alcança o F já é pelo menor número de passos, porque todas as distâncias menores já foram testadas: **19 casas**. O custo é explorar mais o labirinto (56 casas visitadas).
-
-### Em que ponto a Busca Gulosa foi enganada por uma parede?
-
-A gulosa escolhe sempre a casa de menor `h`, mas o `h` não enxerga paredes. Até (5, 8), o caminho dela é igual ao da BFS. Dali, a BFS desce direto pela coluna 8, enquanto a gulosa vai para (5, 9) e desce a coluna 9, onde o `h` é menor (4 → 3 → 2). Em **(7, 9)**, com `h = 2`, ela está a duas casas do F, mas a **parede em (8, 9)** bloqueia a passagem, e ela precisa desviar por (7, 8). Esse desvio custa 2 passos: **21 casas**, contra 19 da BFS.
-
-Antes disso, ela também desceu o alto da coluna da direita até (3, 9) e bateu na parede de (4, 9).
-
-Em compensação, por usar a heurística para ir na direção do F, a gulosa foi a que **visitou menos casas** (37).
-
-## Estrutura do repositório
-
-```
-.
-├── labirinto.py   # labirinto, algoritmos, desenho e tabela
-└── README.md
-```
